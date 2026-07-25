@@ -14,11 +14,11 @@ A REST API for managing tasks, built to demonstrate a full containerized CI/CD w
 Node.js, Express, PostgreSQL, Docker, Docker Compose, GitHub Actions, GHCR
 
 ## Running locally
-\`\`\`bash
+```bash
 git clone https://github.com/<you>/task-tracker-api.git
 cd task-tracker-api
 docker compose up --build
-\`\`\`
+```
 API available at `http://localhost:3000`.
 
 ## API Reference
