@@ -3,7 +3,7 @@ const pool = require('../db');
 
 const router = express.Router();
 
-// Health checks matter a lot once you get to Kubernetes (Project 3) —
+// Health checks matter a lot once you get to Kubernetes —
 // this is exactly what a liveness/readiness probe will call.
 router.get('/health', async (req, res) => {
   try {
