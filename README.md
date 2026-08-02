@@ -38,3 +38,15 @@ Every PR runs the test suite. On merge to `main`, a passing build is packaged in
 - **Multi-stage Docker build** keeps the runtime image lean and free of build-time dependencies.
 - **Non-root container user** reduces the blast radius of a potential container breakout.
 - **DB layer mocked in unit tests** so the test suite runs fast and has no external dependency; a future addition would be an integration test stage against a real Postgres instance in CI.
+
+## Kubernetes Deployment
+
+Manifests in `k8s/` deploy the full stack to any Kubernetes cluster (tested on Minikube):
+- Postgres: Deployment + Service + PersistentVolumeClaim + Secret
+- API: Deployment (2 replicas) + Service + ConfigMap, with readiness/liveness probes on `/health`
+- Ingress (nginx) for external routing
+
+### Deploy
+```bash
+kubectl apply -f k8s/
+```
