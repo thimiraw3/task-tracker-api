@@ -50,3 +50,18 @@ Manifests in `k8s/` deploy the full stack to any Kubernetes cluster (tested on M
 ```bash
 kubectl apply -f k8s/
 ```
+
+## Production-Grade Kubernetes (Helm)
+
+The `task-tracker-chart/` Helm chart extends the base K8s deployment with:
+- **Helm templating** — all config parameterized via `values.yaml`, no hardcoded values
+- **Resource requests/limits** on the API container
+- **Horizontal Pod Autoscaler** — scales 2→6 replicas on CPU >50%, verified under synthetic load
+- **NetworkPolicies** — Postgres only accepts traffic from API pods; verified with isolated test pods (allowed vs. blocked)
+- **RBAC** — dedicated ServiceAccount with a least-privilege Role (read-only on ConfigMaps/Secrets), verified with `kubectl auth can-i`
+
+### Deploy
+```bash
+cd task-tracker-chart
+helm install task-tracker . --namespace task-tracker --create-namespace
+```
