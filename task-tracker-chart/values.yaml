@@ -1,0 +1,25 @@
+postgres:
+  image: postgres:16-alpine
+  user: postgres
+  password: postgres
+  database: tasktracker
+  storageSize: 1Gi
+
+api:
+  image:
+    repository: ghcr.io/thimiraw3/task-tracker-api
+    tag: latest
+  replicas: 2
+  port: 3000
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilization: 50
