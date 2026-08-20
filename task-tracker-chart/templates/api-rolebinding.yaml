@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: task-tracker-api-rolebinding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "task-tracker-chart.labels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: task-tracker-api-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: task-tracker-api-role
+  apiGroup: rbac.authorization.k8s.io
